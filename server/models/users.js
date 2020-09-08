@@ -211,11 +211,16 @@ module.exports = class User extends Model {
       displayName = primaryEmail.split('@')[0]
     }
 
-    // Parse picture URL
-    let pictureUrl = _.truncate(_.get(profile, 'picture', _.get(user, 'pictureUrl', null)), {
-      length: 255,
-      omission: ''
-    })
+    // Parse picture URL / Data
+    let pictureUrl = ''
+    if (profile.picture && Buffer.isBuffer(profile.picture)) {
+      pictureUrl = 'internal'
+    } else {
+      pictureUrl = _.truncate(_.get(profile, 'picture', _.get(user, 'pictureUrl', null)), {
+        length: 255,
+        omission: ''
+      })
+    }
 
     // Update existing user
     if (user) {
@@ -231,6 +236,10 @@ module.exports = class User extends Model {
         name: displayName,
         pictureUrl: pictureUrl
       })
+
+      if (pictureUrl === 'internal') {
+        await WIKI.models.users.updateUserAvatarData(user.id, profile.picture)
+      }
 
       return user
     }
@@ -265,6 +274,10 @@ module.exports = class User extends Model {
         await user.$relatedQuery('groups').relate(provider.autoEnrollGroups)
       }
 
+      if (pictureUrl === 'internal') {
+        await WIKI.models.users.updateUserAvatarData(user.id, profile.picture)
+      }
+
       return user
     }
 
@@ -277,12 +290,17 @@ module.exports = class User extends Model {
   static async login (opts, context) {
     if (_.has(WIKI.auth.strategies, opts.strategy)) {
       const selStrategy = _.get(WIKI.auth.strategies, opts.strategy)
+      if (!selStrategy.isEnabled) {
+        throw new WIKI.Error.AuthProviderInvalid()
+      }
+
       const strInfo = _.find(WIKI.data.authentication, ['key', selStrategy.strategyKey])
 
       // Inject form user/pass
       if (strInfo.useForm) {
         _.set(context.req, 'body.email', opts.username)
         _.set(context.req, 'body.password', opts.password)
+        _.set(context.req.params, 'strategy', opts.strategy)
       }
 
       // Authenticate
@@ -863,5 +881,45 @@ module.exports = class User extends Model {
     }
     user.permissions = ['manage:system']
     return user
+  }
+
+  /**
+   * Add / Update User Avatar Data
+   */
+  static async updateUserAvatarData (userId, data) {
+    try {
+      WIKI.logger.debug(`Updating user ${userId} avatar data...`)
+      if (data.length > 1024 * 1024) {
+        throw new Error('Avatar image filesize is too large. 1MB max.')
+      }
+      const existing = await WIKI.models.knex('userAvatars').select('id').where('id', userId).first()
+      if (existing) {
+        await WIKI.models.knex('userAvatars').where({
+          id: userId
+        }).update({
+          data
+        })
+      } else {
+        await WIKI.models.knex('userAvatars').insert({
+          id: userId,
+          data
+        })
+      }
+    } catch (err) {
+      WIKI.logger.warn(`Failed to process binary thumbnail data for user ${userId}: ${err.message}`)
+    }
+  }
+
+  static async getUserAvatarData (userId) {
+    try {
+      const usrData = await WIKI.models.knex('userAvatars').where('id', userId).first()
+      if (usrData) {
+        return usrData.data
+      } else {
+        return null
+      }
+    } catch (err) {
+      WIKI.logger.warn(`Failed to process binary thumbnail data for user ${userId}`)
+    }
   }
 }
