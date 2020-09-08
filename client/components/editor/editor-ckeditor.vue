@@ -63,7 +63,6 @@ export default {
   },
   async mounted () {
     this.$store.set('editor/editorKey', 'ckeditor')
-
     this.editor = await DecoupledEditor.create(this.$refs.editor, {
       language: this.locale,
       placeholder: 'Type the page content here',

@@ -50,13 +50,13 @@
         v-divider
       v-container.grey.pa-0(fluid, :class='$vuetify.theme.dark ? `darken-4-l3` : `lighten-4`')
         v-row(no-gutters, align-content='center', style='height: 90px;')
-          v-col.page-col-content.is-page-header(offset-xl='2', offset-lg='3', style='margin-top: auto; margin-bottom: auto;', :class='$vuetify.rtl ? `pr-4` : `pl-4`')
+          v-col.page-col-content.is-page-header(offset-xl='2', offset-lg='2', style='margin-top: auto; margin-bottom: auto;', :class='$vuetify.rtl ? `pr-4` : `pl-4`')
             .headline.grey--text(:class='$vuetify.theme.dark ? `text--lighten-2` : `text--darken-3`') {{title}}
             .caption.grey--text.text--darken-1 {{description}}
       v-divider
       v-container.pl-5.pt-4(fluid, grid-list-xl)
         v-layout(row)
-          v-flex.page-col-sd(lg3, xl2, v-if='$vuetify.breakpoint.lgAndUp')
+          v-flex.page-col-sd(lg2, xl2, v-if='$vuetify.breakpoint.lgAndUp')
             v-card.mb-5(v-if='tocDecoded.length')
               .overline.pa-5.pb-0(:class='$vuetify.theme.dark ? `blue--text text--lighten-2` : `primary--text`') {{$t('common:page.toc')}}
               v-list.pb-3(dense, nav, :class='$vuetify.theme.dark ? `darken-3-d3` : ``')
@@ -175,7 +175,7 @@
                   span {{$t('common:page.printFormat')}}
                 v-spacer
 
-          v-flex.page-col-content(xs12, lg9, xl10)
+          v-flex.page-col-content(xs12, lg10, xl10)
             v-tooltip(:right='$vuetify.rtl', :left='!$vuetify.rtl', v-if='isAuthenticated')
               template(v-slot:activator='{ on: onEditActivator }')
                 v-speed-dial(

@@ -1,0 +1,175 @@
+// Overwriting generic bootstrap classes
+.primary {
+  background-color: $brand-color!important;
+  border-color: $brand-color !important;
+}
+
+.primary--text {
+  color: $brand-color !important;
+  caret-color: $brand-color !important;
+}
+
+// Customizing theme layout
+
+// Frontend
+.v-application:not(.admin) {
+  // Header
+  header {
+    &.nav-header,
+    &.nav-header-inner {
+      background: $header-background !important;
+      border: $header-border !important;
+
+      .v-input__slot {
+        background: $header-search-background !important;
+        border: $header-search-border !important;
+      }
+
+      .v-icon {
+        color: $header-text-color !important;
+      }
+    }
+  }
+
+  // Navigation
+  nav {
+    .__view {
+      background: $navigation-background !important;
+      // Navigation header
+      > div {
+        > .d-flex {
+          background: $navigation-header-background !important;
+          border: $navigation-header-border !important;
+          // Header Item
+          > button {
+            background: $navigation-header-item-background !important;
+            border: $navigation-header-item-border !important;
+          }
+        }
+      }
+      // Item
+      .v-list {
+        background: $navigation-item-background !important;
+      }
+    }
+  }
+
+  //Dialogs
+  .v-dialog  {
+    .dialog-header {
+      background: $dialog-header-background !important;
+      background-image: inherit !important;
+    }
+    .d-flex {
+      .flex {
+        &:nth-child(1) {
+          .v-toolbar {
+            background: darken($dialog-toolbar-background, 25) !important;
+            border: darken($dialog-toolbar-border, 25) !important;
+          }
+        }
+        &:nth-child(2) {
+          .v-toolbar {
+            background: $dialog-toolbar-background !important;
+            border: $dialog-toolbar-border !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Content Wrapper
+  .v-content__wrap {
+    // Cards
+    .page-col-sd {
+      // Card
+      .v-card {
+        // Card headline
+        > .pa-5 {
+          > .overline {
+            color: $content-card-header-color !important;
+            caret-color: $content-card-header-color !important;
+          }
+        }
+        // Unselected card
+        &:not(.v-sheet--outlined) {
+          box-shadow: $content-card-box-shadow !important;
+          border: $content-card-border !important;
+          border-width: $content-card-border-width !important;
+        }
+        // Chips
+        .v-chip {
+          background: $content-card-chip-background !important;
+          border: $content-card-chip-border !important;
+          .v-chip__content {
+            > i,
+            > span {
+              color: $content-card-chip-content-color !important;
+            }
+          }
+        }
+      }
+    }
+
+    // Headline
+    .is-page-header {
+      text-align: center;
+      .headline {
+        caret-color: $content-headline-color !important;
+        color: $content-headline-color !important;
+      }
+    }
+
+    // Contents
+    .contents {
+      h1{
+        color: $content-h1-color !important;
+        &:after {
+          background: $content-h1-underline-background !important;
+        }
+      }
+
+      .image-style-align-left {
+        margin-right: 30px;
+      }
+
+      ul:not(.tabset-tabs) {
+        >li {
+          &:before {
+            content: "";
+            width: $content-li-dot-width;
+            height: $content-li-dot-height;
+            border-right: 5px $content-li-dot-color solid;
+            border-bottom: 5px darken($content-li-dot-color, 15) solid;
+            transform: rotate(-45deg);
+            background: 0 0;
+            position: absolute;
+            left: $content-li-dot-left;
+            top: $content-li-dot-top;
+          }
+        }
+      }
+
+      // Links
+      a {
+        color: $content-a-color;
+        text-decoration: $content-a-text-decoration;
+        background: $content-a-background;
+        padding: $content-a-padding;
+        border-radius: $content-a-border-radius;
+      }
+
+      // Forcing tables to became a list of blocks when using mobile content (Used on templates)
+      /*@media only screen and (max-width: 760px),
+      (min-device-width: 768px) and (max-device-width: 1024px)  {
+        table, thead, tbody, th, td, tr {
+          display: block;
+        }
+
+        td {
+          width: 100% !important;
+        }
+      }*/
+    }
+  }
+}
