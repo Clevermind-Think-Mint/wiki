@@ -1,0 +1,18 @@
+/* Lift Coach theme */
+
+@import '../../default/scss/app';
+
+// Ensuring logo has the correct size
+.v-avatar--tile {
+  height: auto !important;
+}
+
+// Customizing UX
+@import './variables';
+@import './coming-soon';
+@import './editor';
+@import './login';
+@import './onboarding';
+@import './other';
+@import './theme';
+

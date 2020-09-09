@@ -1,0 +1,18 @@
+// Login page
+
+.v-application {
+
+  .indigo {
+    background-color: $brand-color!important;
+    border-color: $brand-color !important;
+  }
+
+  .indigo--text {
+    color: $brand-color!important;
+    caret-color: $brand-color!important;
+  }
+
+  .login {
+    background-color: $brand-color;
+  }
+}

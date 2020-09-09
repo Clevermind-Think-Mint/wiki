@@ -1,10 +1,10 @@
 {
   "name": "wiki",
-  "version": "2.0.0",
+  "version": "2.5.126+001000",
   "releaseDate": "2019-01-01T01:01:01.000Z",
   "description": "A modern, lightweight and powerful wiki app built on NodeJS, Git and Markdown",
   "main": "wiki.js",
-  "dev": true,
+  "dev": false,
   "scripts": {
     "start": "node server",
     "dev": "node dev",
@@ -181,6 +181,7 @@
     "uslug": "1.0.4",
     "uuid": "8.3.0",
     "validate.js": "0.13.1",
+    "video.js": "7.8.4",
     "winston": "3.3.3",
     "xss": "1.0.8",
     "yargs": "15.4.1"
