@@ -258,7 +258,8 @@ module.exports = {
       return results.filter(r => {
         return WIKI.auth.checkAccess(context.req.user, ['read:pages'], {
           path: r.path,
-          locale: r.localeCode
+          locale: r.localeCode,
+          tags: r.tags
         })
       }).map(r => ({
         ...r,
