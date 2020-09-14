@@ -10,7 +10,13 @@ module.exports = async (pageId) => {
     await WIKI.configSvc.loadFromDb()
     await WIKI.configSvc.applyFlags()
 
-    const pages = await WIKI.models.pages.query().select('id', 'path', 'localeCode', 'title', 'isPrivate', 'privateNS').orderBy(['localeCode', 'path'])
+    const pages = await WIKI.models.pages.query()
+      .select('pages.id', 'path', 'localeCode', 'title', 'isPrivate', 'privateNS')
+      .withGraphJoined('tags') // Adding page tags
+      .modifyGraph('tags', builder => {
+        builder.select('tag')
+      })
+      .orderBy(['localeCode', 'path'])
     let tree = []
     let pik = 0
 
@@ -41,13 +47,18 @@ module.exports = async (pageId) => {
             privateNS: !isFolder ? page.privateNS : null,
             parent: parentId,
             pageId: isFolder ? null : page.id,
-            ancestors: JSON.stringify(ancestors)
+            ancestors: JSON.stringify(ancestors),
+            tags: JSON.stringify(_.map(page.tags, _.toPlainObject))
           })
           parentId = pik
         } else if (isFolder && !found.isFolder) {
           found.isFolder = true
+          // We need to merge all the pages tags to ensure the correct access when using permissions based on tags
+          found.tags = JSON.stringify(_.uniqBy(_.concat(JSON.parse(found.tags), _.map(page.tags, _.toPlainObject)), 'tag'))
           parentId = found.id
         } else {
+          // We need to merge all the pages tags to ensure the correct access when using permissions based on tags
+          found.tags = JSON.stringify(_.uniqBy(_.concat(JSON.parse(found.tags), _.map(page.tags, _.toPlainObject)), 'tag'))
           parentId = found.id
         }
         ancestors.push(parentId)

@@ -1,0 +1,59 @@
+$brand-color: #1976d2 !default;
+
+// Header
+$header-background:#004164 !default;
+$header-border:#004164 !default;
+$header-text-color: #ffffff !default;
+$header-search-background: #004164 !default;
+$header-search-border: 1px solid #ffffff2e !default;
+
+// Navigation
+$navigation-background:#004164 !default;
+$navigation-header-background: #004164 !default;
+$navigation-header-border: #1565c0 !default;
+$navigation-header-item-background: #05a9f2 !default;
+$navigation-header-item-border: #05a9f2 !default;
+$navigation-item-background: #004164 !default;
+
+// Dialogs
+$dialog-header-background: #004164 !default;
+$dialog-toolbar-background: $brand-color !default;
+$dialog-toolbar-border: $brand-color !default;
+
+// Editor
+$editor-choose-type-background: #004164 !default;
+$editor-choose-type-color: #ffffff !default;
+$editor-choose-type-item-color: #004164 !default;
+$editor-choose-custom-background: #004164 !default;
+$editor-choose-custom-color: #ffffff !default;
+$editor-choose-custom-item-color: #004164 !default;
+$editor-chip-background: #00416494 !default;
+$editor-chip-border: 0 !default;
+$editor-chip-content-color: #ffffff !default;
+
+// Content
+$content-card-border: 2px solid #004164 !default;
+$content-card-border-width: 0 0 2px 0;
+$content-card-box-shadow: 0 9px 12px 0 rgba(0,0,0,.03) !default;
+$content-card-header-color: $brand-color !default;
+// Content - Tags
+$content-card-chip-background: #00416494 !default;
+$content-card-chip-border: 0 !default;
+$content-card-chip-content-color: #ffffff !default;
+// Content - Headline
+$content-headline-color: #004164 !default;
+// Content - <h1>
+$content-h1-color: #424242 !default;
+$content-h1-underline-background: linear-gradient(90deg,#616161,rgba(97,97,97,0)) !default;
+// Content - <a>
+$content-a-color: #ffffff !default;
+$content-a-text-decoration: none !default;
+$content-a-background:#004164 !default;
+$content-a-padding: .3rem 1.3rem !default;
+$content-a-border-radius: .4rem !default;
+// Content - <li>
+$content-li-dot-color: #004164 !default;
+$content-li-dot-left: -30px !default;
+$content-li-dot-top: 6px !default;
+$content-li-dot-height: 15px !default;
+$content-li-dot-width: 15px !default;

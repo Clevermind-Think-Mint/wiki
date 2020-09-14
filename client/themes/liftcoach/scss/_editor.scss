@@ -1,0 +1,56 @@
+.v-application {
+  &.editor {
+    // Choosing editor type
+    .v-dialog {
+      > .v-card {
+        &:nth-child(2) {
+          background: $editor-choose-type-background !important;
+          > .v-card__text {
+            > .caption {
+              color: $editor-choose-type-color !important;
+              caret-color: $editor-choose-type-color !important;
+            }
+          }
+          // Items
+          .container {
+            // Item
+            .body-2 {
+              color: $editor-choose-type-item-color !important;
+              caret-color: $editor-choose-type-item-color !important;
+            }
+          }
+        }
+        &:nth-child(3) {
+          background: $editor-choose-custom-background !important;
+          > .v-card__text {
+            > .caption {
+              color: $editor-choose-custom-color !important;
+              caret-color: $editor-choose-custom-color !important;
+            }
+          }
+          // Items
+          .container {
+            // Item
+            .body-2 {
+              color: $editor-choose-custom-item-color !important;
+              caret-color: $editor-choose-custom-item-color !important;
+            }
+          }
+        }
+      }
+    }
+    // Tags
+    .v-chip-group {
+      .teal {
+        background: $editor-chip-background !important;
+        border: $editor-chip-border !important;
+      }
+      // TODO: find a better way to handle the following color using variables
+      .teal--text {
+        color: $editor-chip-content-color !important;
+        caret-color: $editor-chip-content-color !important;
+      }
+    }
+  }
+
+}

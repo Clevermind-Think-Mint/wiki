@@ -64,7 +64,6 @@ export default {
   },
   async mounted () {
     this.$store.set('editor/editorKey', 'ckeditor')
-
     this.editor = await DecoupledEditor.create(this.$refs.editor, {
       language: this.locale,
       placeholder: 'Type the page content here',
@@ -87,6 +86,14 @@ export default {
             words: stats.words
           }
         }
+      },
+      mediaEmbed: {
+        previewsInData: true,
+        extraProviders: [{
+          name: 'wiki.js-video-assets',
+          url: new RegExp('^((http|https):\\/\\/)*(' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '\\/|\\/)((\\w|\\/|\\.)+)(ogm|ogg|ogv|avi|asd|mp4|webm)$'),
+          html: (match) => `<video style="width: 100%;" controls><source src="/${match[4]}${match[6]}" type="video/${match[6]}"></video>`
+        }]
       }
     })
     this.$refs.toolbarContainer.appendChild(this.editor.ui.view.toolbar.element)
