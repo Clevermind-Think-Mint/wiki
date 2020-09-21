@@ -91,7 +91,7 @@ export default {
         previewsInData: true,
         extraProviders: [{
           name: 'wiki.js-video-assets',
-          url: new RegExp('^((http|https):\\/\\/)*(' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '\\/|\\/)((\\w|\\/|\\.)+)(ogm|ogg|ogv|avi|asd|mp4|webm)$'),
+          url: new RegExp('^((http|https):\\/\\/)*(' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '\\/|\\/)((\\w|\\/|\\.|\\(|\\)|\')+)(ogm|ogg|ogv|avi|asd|mp4|webm)$'),
           html: (match) => `<video style="width: 100%;" controls><source src="/${match[4]}${match[6]}" type="video/${match[6]}"></video>`
         }]
       }
@@ -114,9 +114,13 @@ export default {
           })
           break
         case 'BINARY':
-          this.editor.execute('link', opts.path, {
-            linkIsDownloadable: true
-          })
+          if (_.startsWith(opts.mime, 'video/')) {
+            this.editor.execute('mediaEmbed', opts.path)
+          } else {
+            this.editor.execute('link', opts.path, {
+              linkIsDownloadable: true
+            })
+          }
           break
         case 'DIAGRAM':
           this.editor.execute('imageInsert', {

@@ -11,6 +11,13 @@
 
 // Customizing theme layout
 
+// Hiding links to wiki.js guides
+a {
+  &[href^="https://docs.requarks.io/guide/"] {
+    display: none !important;
+  }
+}
+
 // Frontend
 .v-application:not(.admin) {
   // Header
@@ -101,11 +108,24 @@
         .v-chip {
           background: $content-card-chip-background !important;
           border: $content-card-chip-border !important;
+          // Disabling click events
+          pointer-events: none;
+          cursor: default;
+          text-decoration: none;
           .v-chip__content {
             > i,
             > span {
               color: $content-card-chip-content-color !important;
             }
+          }
+        }
+      }
+      // Toolbar
+      .v-toolbar__content {
+        // Hiding bookmark
+        button {
+          &:nth-of-type(1){
+            display: none !important;
           }
         }
       }
@@ -173,6 +193,19 @@
         td {
           width: 100% !important;
         }
+      }
+    }
+  }
+
+   // Hiding undesired share buttons
+   .v-menu__content {
+    [role="menuitem"] {
+      display: none !important; // Hiding all items
+      &:nth-child(1), // URL
+      &:nth-child(2), // E-mail
+      &:nth-child(6), // Telegram
+      &:nth-child(10) { // WhatsApp
+        display: flex !important;
       }
     }
   }

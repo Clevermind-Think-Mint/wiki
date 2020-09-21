@@ -23,6 +23,7 @@ module.exports = {
           fill: (!!element.attr('fill')),
           height: element.attr('height') || 'auto',
           width: element.attr('width') || 'auto',
+          fluid: true, // Forcing fluid to true since Wiki.js videos always get the entire available space
           poster: element.attr('poster'),
           aspectRatio: (!!element.attr('aspect-ratio') || null),
           sources: _.chain(element.find('source'))
