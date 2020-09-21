@@ -209,4 +209,11 @@ a {
       }
     }
   }
+
+  // Hiding "Code" from editing actions
+  .v-speed-dial__list {
+    > div:nth-child(2) {
+      display: none !important;
+    }
+  }
 }
